@@ -1,0 +1,31 @@
+:root{ --bg:#ffffff; --text:#0a1522; --muted:#5e6b7a; --link:#1a5cff; --accent:#edf2ff; --card:#f7f9ff; }
+:root.dark{ --bg:#0a0f17; --text:#e7edf7; --muted:#9bb0c9; --link:#8cb0ff; --accent:#0f1727; --card:#111827; }
+*{box-sizing:border-box}body{margin:0;font:16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;background:var(--bg);color:var(--text)}
+.container{max-width:1000px;margin:0 auto;padding:1rem}
+.flex{display:flex}.between{justify-content:space-between}.center{align-items:center}
+.site-header{border-bottom:1px solid rgba(0,0,0,.05);background:var(--bg);position:sticky;top:0;z-index:10}
+.brand{font-weight:700;text-decoration:none;color:var(--text)}
+.nav a{margin:0 .75rem;text-decoration:none;color:var(--text)}
+.nav a:hover{color:var(--link)}
+.dark-toggle{margin-left:.5rem}
+.hero{padding:2.5rem 0; background:linear-gradient(90deg,var(--accent),transparent 60%)}
+.lead{color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem}
+.post-card{background:var(--card);border-radius:12px;padding:1rem;border:1px solid rgba(0,0,0,.06)}
+.post-card h3{margin:.2rem 0}
+.post-teaser{width:100%;height:160px;object-fit:cover;border-radius:10px}
+.tags{margin:.25rem 0}.tag{margin-right:.4rem;font-size:.85rem;text-decoration:none;color:var(--link)}
+.btn{display:inline-block;background:var(--link);color:#fff;padding:.5rem .9rem;border-radius:10px;text-decoration:none}
+.btn:hover{opacity:.9}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem}
+.gallery-item{display:block;background:var(--card);border-radius:12px;padding:.5rem;border:1px solid rgba(0,0,0,.06);text-decoration:none;color:inherit}
+.gallery-item img{width:100%;height:180px;object-fit:cover;border-radius:10px}
+.caption{margin:.4rem 0;font-weight:600}
+.muted{color:var(--muted)}.small{font-size:.9rem}
+.site-footer{border-top:1px solid rgba(0,0,0,.05); margin-top:3rem}
+.page h1, .post h1{margin-top:1rem}
+.post-content img{max-width:100%;border-radius:10px}
+.yt-wrapper{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px}
+.yt-wrapper iframe{position:absolute;top:0;left:0;width:100%;height:100%}
+/* Dark mode */
+.theme{transition:background .2s linear, color .2s linear}
