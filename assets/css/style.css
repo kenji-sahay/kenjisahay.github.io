@@ -120,3 +120,29 @@
 html{ scroll-behavior: smooth; }
 .reveal{ opacity:0; transform: translateY(12px); transition: opacity .35s ease, transform .35s ease; }
 .reveal.in{ opacity:1; transform:none; }
+
+pre[class*="language-"],
+code[class*="language-"]{
+  background: var(--card) !important;
+  color: var(--text);
+  box-shadow: none;
+  border: 1px solid rgba(0,0,0,.06);
+  border-radius: 10px;
+}
+
+/* Dark mode adjustments */
+:root.dark pre[class*="language-"],
+:root.dark code[class*="language-"]{
+  background: #0f1727 !important;   /* matches your dark card */
+  border-color: rgba(255,255,255,.08);
+}
+
+/* Monospace + spacing polish */
+pre[class*="language-"]{
+  padding: 1rem;
+  overflow: auto;
+  line-height: 1.55;
+}
+code[class*="language-"]{
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+}
