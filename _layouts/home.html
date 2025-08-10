@@ -1,0 +1,32 @@
+---
+layout: default
+---
+<section class="hero">
+  <h1>En Garde Data</h1>
+  <p class="lead">Notes on LLM research, a RAG internship journal, and a portfolio of digital art & film.</p>
+</section>
+
+<section>
+  <h2>Latest posts</h2>
+  <div class="grid">
+    {% for post in site.posts limit:6 %}
+      {% include post_card.html post=post %}
+    {% endfor %}
+  </div>
+  <p><a class="btn" href="{{ '/blog/' | relative_url }}">View all posts →</a></p>
+</section>
+
+<section>
+  <h2>Portfolio</h2>
+  <div class="gallery">
+    {% for item in site.portfolio limit:6 %}
+      <a class="gallery-item" href="{{ item.url | relative_url }}">
+        {% if item.cover %}
+          <img src="{{ item.cover | relative_url }}" alt="{{ item.title }}" loading="lazy">
+        {% endif %}
+        <div class="caption">{{ item.title }}</div>
+      </a>
+    {% endfor %}
+  </div>
+  <p><a class="btn" href="{{ '/portfolio/' | relative_url }}">View full portfolio →</a></p>
+</section>
