@@ -9,18 +9,38 @@
 .nav a:hover{color:var(--link)}
 .dark-toggle{margin-left:.5rem}
 .hero{
-  /* Make background stretch edge-to-edge across viewport */
+  /* full-bleed container while text stays aligned with .container width */
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
-
-  /* Keep text aligned with your container width */
-  padding: 3rem calc(50vw - 50%);
-  /* add a little extra horizontal padding so the gradient “peeks” before text */
+  padding: 3.5rem calc(50vw - 50%);
   padding-left: calc(50vw - 50% + 1rem);
   padding-right: calc(50vw - 50% + 1rem);
 
-  background: linear-gradient(90deg, var(--accent), transparent 70%);
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(0,0,0,.06);
+
+  /* layered gradients: base + radial highlight + subtle conic wash */
+  background:
+    radial-gradient(1200px 600px at 10% 30%, rgba(26,92,255,.08), transparent 60%),
+    conic-gradient(from 200deg at 80% 20%, rgba(26,92,255,.08), transparent 40%, rgba(26,92,255,.06)),
+    linear-gradient(180deg, var(--accent), transparent 70%);
 }
+
+/* optional: gentle motion of the conic wash (respects reduced motion) */
+@media (prefers-reduced-motion: no-preference){
+  .hero{
+    background-size: auto, 200% 200%, auto;
+    animation: heroSheen 14s ease-in-out infinite alternate;
+  }
+  @keyframes heroSheen{
+    0%   { background-position: center, 0% 50%, center; }
+    100% { background-position: center, 100% 50%, center; }
+  }
+}
+
+.hero h1{ margin: 0 0 .5rem 0; letter-spacing:.2px; }
+.hero .lead{ font-size:1.12rem; color:var(--muted); max-width: 70ch; }
 
 .hero h1{ margin: 0 0 .5rem 0; }
 .hero .lead{ font-size:1.1rem; }
