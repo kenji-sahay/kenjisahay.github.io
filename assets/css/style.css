@@ -173,3 +173,62 @@ pre[class*="language-"] *,
 code[class*="language-"] *{
   text-shadow: none !important;
 }
+
+:root{
+  --code-bg: #f7f9ff;            /* light card */
+  --code-border: rgba(0,0,0,.06);
+  --code-text: var(--text);
+
+  /* Prism token palette (light) */
+  --tok-comment: #6b7280;
+  --tok-key: #1d4ed8;
+  --tok-func: #0d9488;
+  --tok-str: #065f46;
+  --tok-num: #7c3aed;
+  --tok-op: #0f172a;
+}
+:root.dark{
+  --code-bg: #0f1727;            /* dark card */
+  --code-border: rgba(255,255,255,.10);
+  --code-text: var(--text);
+
+  /* Prism token palette (dark) */
+  --tok-comment: #9aa7bd;
+  --tok-key: #8cb0ff;
+  --tok-func: #67e8f9;
+  --tok-str: #86efac;
+  --tok-num: #c4b5fd;
+  --tok-op: #e5e7eb;
+}
+
+/* Background only on <pre>, not inner <code> (prevents ghosting) */
+code[class*="language-"]{ background: transparent !important; text-shadow:none !important; }
+pre[class*="language-"]{
+  background: var(--code-bg) !important;
+  color: var(--code-text);
+  border: 1px solid var(--code-border);
+  border-radius: 12px;
+  padding: 1rem;
+  overflow: auto;
+  box-shadow: none;
+}
+pre[class*="language-"] *{ text-shadow:none !important; }
+
+/* Prism token colors unified */
+.token.comment, .token.prolog, .token.doctype, .token.cdata { color: var(--tok-comment) !important; }
+.token.keyword, .token.atrule { color: var(--tok-key) !important; }
+.token.function, .token.class-name { color: var(--tok-func) !important; }
+.token.string, .token.char, .token.builtin { color: var(--tok-str) !important; }
+.token.number, .token.boolean, .token.constant { color: var(--tok-num) !important; }
+.token.operator, .token.punctuation { color: var(--tok-op) !important; }
+
+/* KaTeX display blocks look like code blocks (same surface) */
+.katex-display{
+  background: var(--code-bg);
+  border: 1px solid var(--code-border);
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  margin: 1rem 0;
+  overflow-x: auto;  /* long equations don’t break layout */
+}
+.katex{ color: var(--code-text); } /* text color sync */
