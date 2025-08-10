@@ -240,15 +240,15 @@ pre[class*="language-"]{
 .katex{ color:var(--code-text) }
 
 #hero-canvas{
-  position: sticky;     /* sticks under the header and behind hero content */
-  top: 0;
-  z-index: 0;
-  width: 100vw;
-  height: 48vh;         /* adjust if you want taller/shorter */
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   display: block;
   pointer-events: none;
+  z-index: 0;
 }
-.hero{ position: relative; z-index: 1; } /* keep hero text above the canvas */
+.hero{ position: relative; z-index: 1; }
 
 /* Reduce motion: fully disable animation if user prefers no motion */
 @media (prefers-reduced-motion: reduce){
@@ -256,11 +256,3 @@ pre[class*="language-"]{
 }
 html.__noTransition * { transition: none !important; }
 
-/* kill accidental horizontal scroll */
-html, body { overflow-x: hidden; }
-
-/* make sure nothing is wider than the viewport */
-img, video, canvas { max-width: 100%; }
-
-/* three.js canvas: don't use 100vw; fill the container instead */
-#hero-canvas { width: 100% !important; }
