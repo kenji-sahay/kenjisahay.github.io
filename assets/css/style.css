@@ -1,90 +1,149 @@
-:root{ --bg:#ffffff; --text:#0a1522; --muted:#5e6b7a; --link:#1a5cff; --accent:#edf2ff; --card:#f7f9ff; }
-:root.dark{ --bg:#0a0f17; --text:#e7edf7; --muted:#9bb0c9; --link:#8cb0ff; --accent:#0f1727; --card:#111827; }
-*{box-sizing:border-box}body{margin:0;font:16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;background:var(--bg);color:var(--text)}
-.container{max-width:1000px;margin:0 auto;padding:1rem}
-.flex{display:flex}.between{justify-content:space-between}.center{align-items:center}
+/* ============================
+   En Garde Data – Base Theme
+   ============================ */
+
+/* Light + dark tokens */
+:root{
+  --bg:#ffffff; 
+  --text:#0a1522; 
+  --muted:#5e6b7a; 
+  --link:#1a5cff; 
+  --accent:#edf2ff; 
+  --card:#f7f9ff;
+
+  /* Unified surfaces for code + math (light) */
+  --code-bg:#f7f9ff;
+  --code-border:rgba(0,0,0,.06);
+  --code-text:var(--text);
+
+  /* Prism token palette (light) */
+  --tok-comment:#6b7280;
+  --tok-key:#1d4ed8;
+  --tok-func:#0d9488;
+  --tok-str:#065f46;
+  --tok-num:#7c3aed;
+  --tok-op:#0f172a;
+}
+:root.dark{
+  --bg:#0a0f17; 
+  --text:#e7edf7; 
+  --muted:#9bb0c9; 
+  --link:#8cb0ff; 
+  --accent:#0f1727; 
+  --card:#111827;
+
+  /* Unified surfaces for code + math (dark) */
+  --code-bg:#0f1727;
+  --code-border:rgba(255,255,255,.10);
+  --code-text:var(--text);
+
+  /* Prism token palette (dark) */
+  --tok-comment:#9aa7bd;
+  --tok-key:#8cb0ff;
+  --tok-func:#67e8f9;
+  --tok-str:#86efac;
+  --tok-num:#c4b5fd;
+  --tok-op:#e5e7eb;
+}
+
+/* Global reset-ish */
+*{ box-sizing:border-box }
+html{ scroll-behavior:smooth }
+body{
+  margin:0;
+  font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+.theme{ transition: background .2s linear, color .2s linear }
+.container{ max-width:1000px; margin:0 auto; padding:1rem }
+.flex{ display:flex } .between{ justify-content:space-between } .center{ align-items:center }
+.small{ font-size:.9rem } .muted{ color:var(--muted) }
+
+/* Skip link: hidden until keyboard focus */
+.skip-link{
+  position:absolute; left:-10000px; top:auto; width:1px; height:1px; overflow:hidden;
+}
+.skip-link:focus{
+  left:1rem; top:1rem; width:auto; height:auto; padding:.5rem .75rem;
+  background:var(--card); border:1px solid rgba(0,0,0,.15); border-radius:.5rem; z-index:1000;
+}
+
+/* ===== Header (glassy with faint blue tint) ===== */
 .site-header{
-  position: sticky; top: 0; z-index: 40;
-  /* translucent tint + subtle gradient to feel like a surface */
+  position:sticky; top:0; z-index:40;
   background:
     linear-gradient(180deg,
-      rgba(26,92,255,.07),          /* faint blue top tint */
+      rgba(26,92,255,.07),          /* faint blue top tint (light) */
       rgba(255,255,255,.45)         /* soft white bottom blend */
     );
   -webkit-backdrop-filter: blur(10px) saturate(140%);
   backdrop-filter: blur(10px) saturate(140%);
-  border-bottom: 1px solid rgba(0,0,0,.06);
-  box-shadow: 0 0 0 rgba(0,0,0,0); /* no shadow at top */
+  border-bottom:1px solid rgba(0,0,0,.06);
+  box-shadow:0 0 0 rgba(0,0,0,0);
   transition: background .25s ease, box-shadow .25s ease, border-color .25s ease;
 }
-/* dark mode tint */
 :root.dark .site-header{
   background:
     linear-gradient(180deg,
-      rgba(26,92,255,.10),          /* slightly stronger blue tint */
-      rgba(16,22,35,.45)  
+      rgba(26,92,255,.10),          /* slightly stronger blue tint (dark) */
+      rgba(16,22,35,.45)            /* dark glass bottom blend */
+    );
   border-bottom-color: rgba(255,255,255,.08);
 }
-
-/* give it a subtle glass "edge" */
+/* inner highlight edge for glass */
 .site-header::after{
-  content:"";
-  position:absolute; inset:0;
-  pointer-events:none;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.35); /* inner highlight */
+  content:""; position:absolute; inset:0; pointer-events:none;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.35);
 }
-
-/* stronger presence after scroll */
+/* stronger presence after small scroll */
 .site-header.scrolled{
-  box-shadow: 0 8px 28px rgba(0,0,0,.10);
-  border-bottom-color: rgba(0,0,0,.10);
+  box-shadow:0 8px 28px rgba(0,0,0,.10);
+  border-bottom-color:rgba(0,0,0,.10);
 }
 :root.dark .site-header.scrolled{
-  box-shadow: 0 10px 36px rgba(0,0,0,.40);
-  border-bottom-color: rgba(255,255,255,.10);
+  box-shadow:0 10px 36px rgba(0,0,0,.40);
+  border-bottom-color:rgba(255,255,255,.10);
 }
 
-/* nav underline polish (keep your existing) */
+/* Brand + nav */
+.brand{ font-weight:700; letter-spacing:.2px; color:var(--text); text-decoration:none }
 .nav a{
-  position: relative; display:inline-block;
+  position:relative; display:inline-block;
   margin:0 .75rem; padding:.45rem .1rem;
   color:var(--text); text-decoration:none;
 }
+/* animated underline */
 .nav a::after{
   content:""; position:absolute; left:0; right:0; bottom:.1rem; height:2px;
-  transform: scaleX(0); transform-origin:left; background: var(--link);
-  transition: transform .22s ease;
+  transform:scaleX(0); transform-origin:left; background:var(--link);
+  transition:transform .22s ease;
 }
-.nav a:hover::after{ transform: scaleX(1); }
-/* brand tweak */
-.brand{ font-weight:700; letter-spacing:.2px; }
-.brand{font-weight:700;text-decoration:none;color:var(--text)}
-.nav a{margin:0 .75rem;text-decoration:none;color:var(--text)}
-.nav a:hover{color:var(--link)}
-.dark-toggle{margin-left:.5rem}
+.nav a:hover::after{ transform:scaleX(1) }
+
+/* ===== Hero (full-bleed, layered, optional motion) ===== */
 .hero{
-  /* full-bleed container while text stays aligned with .container width */
+  /* full-bleed background but align text to container */
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
   padding: 3.5rem calc(50vw - 50%);
   padding-left: calc(50vw - 50% + 1rem);
   padding-right: calc(50vw - 50% + 1rem);
 
-  position: relative;
-  overflow: hidden;
-  border-bottom: 1px solid rgba(0,0,0,.06);
+  position: relative; overflow:hidden;
+  border-bottom:1px solid rgba(0,0,0,.06);
 
-  /* layered gradients: base + radial highlight + subtle conic wash */
   background:
     radial-gradient(1200px 600px at 10% 30%, rgba(26,92,255,.08), transparent 60%),
     conic-gradient(from 200deg at 80% 20%, rgba(26,92,255,.08), transparent 40%, rgba(26,92,255,.06)),
     linear-gradient(180deg, var(--accent), transparent 70%);
 }
+.hero h1{ margin:0 0 .5rem 0; letter-spacing:.2px }
+.hero .lead{ font-size:1.12rem; color:var(--muted); max-width:70ch }
 
-/* optional: gentle motion of the conic wash (respects reduced motion) */
 @media (prefers-reduced-motion: no-preference){
   .hero{
-    background-size: auto, 200% 200%, auto;
+    background-size:auto, 200% 200%, auto;
     animation: heroSheen 14s ease-in-out infinite alternate;
   }
   @keyframes heroSheen{
@@ -93,132 +152,76 @@
   }
 }
 
-.hero h1{ margin: 0 0 .5rem 0; letter-spacing:.2px; }
-.hero .lead{ font-size:1.12rem; color:var(--muted); max-width: 70ch; }
-
-.hero h1{ margin: 0 0 .5rem 0; }
-.hero .lead{ font-size:1.1rem; }
-.lead{color:var(--muted)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem}
-.post-card{background:var(--card);border-radius:12px;padding:1rem;border:1px solid rgba(0,0,0,.06)}
-.post-card h3{margin:.2rem 0}
-.post-teaser{width:100%;height:160px;object-fit:cover;border-radius:10px}
-.tags{margin:.25rem 0}.tag{margin-right:.4rem;font-size:.85rem;text-decoration:none;color:var(--link)}
-.btn{display:inline-block;background:var(--link);color:#fff;padding:.5rem .9rem;border-radius:10px;text-decoration:none}
-.btn:hover{opacity:.9}
-.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem}
-.gallery-item{display:block;background:var(--card);border-radius:12px;padding:.5rem;border:1px solid rgba(0,0,0,.06);text-decoration:none;color:inherit}
-.gallery-item img{width:100%;height:180px;object-fit:cover;border-radius:10px}
-.caption{margin:.4rem 0;font-weight:600}
-.muted{color:var(--muted)}.small{font-size:.9rem}
-.site-footer{border-top:1px solid rgba(0,0,0,.05); margin-top:3rem}
-.page h1, .post h1{margin-top:1rem}
-.post-content img{max-width:100%;border-radius:10px}
-.yt-wrapper{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px}
-.yt-wrapper iframe{position:absolute;top:0;left:0;width:100%;height:100%}
-/* Dark mode */
-.theme{transition:background .2s linear, color .2s linear}
-
-.skip-link{
-  position:absolute; left:-10000px; top:auto; width:1px; height:1px; overflow:hidden;
+/* ===== Buttons, grids, cards, gallery ===== */
+.btn{
+  display:inline-block; background:var(--link); color:#fff;
+  padding:.5rem .9rem; border-radius:10px; text-decoration:none;
+  transition:opacity .15s ease, transform .15s ease;
 }
-.skip-link:focus{
-  left:1rem; top:1rem; width:auto; height:auto; padding:.5rem .75rem;
-  background:var(--card); border:1px solid rgba(0,0,0,.15); border-radius:.5rem;
-  z-index:1000;
-}
-.post-card, .gallery-item{
+.btn:hover{ opacity:.9; transform: translateY(-1px) }
+
+.grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:1rem }
+
+.post-card{
+  background:var(--card); border-radius:12px; padding:1rem;
+  border:1px solid rgba(0,0,0,.06);
   transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
 }
+.post-card h3{ margin:.2rem 0 }
+.post-teaser{ width:100%; height:160px; object-fit:cover; border-radius:10px }
+.tags{ margin:.25rem 0 }
+.tag{ margin-right:.4rem; font-size:.85rem; text-decoration:none; color:var(--link) }
+
+/* Card / gallery hover micro-interactions */
 .post-card:hover, .gallery-item:hover{
   transform: translateY(-2px);
   box-shadow: 0 10px 24px rgba(0,0,0,.08);
   border-color: rgba(0,0,0,.10);
 }
-html{ scroll-behavior: smooth; }
-.reveal{ opacity:0; transform: translateY(12px); transition: opacity .35s ease, transform .35s ease; }
-.reveal.in{ opacity:1; transform:none; }
 
-code[class*="language-"]{
-  background: transparent !important;
+/* Gallery */
+.gallery{ display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:1rem }
+.gallery-item{
+  display:block; background:var(--card); border-radius:12px; padding:.5rem;
+  border:1px solid rgba(0,0,0,.06); text-decoration:none; color:inherit;
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
 }
+.gallery-item img{ width:100%; height:180px; object-fit:cover; border-radius:10px }
+.caption{ margin:.4rem 0; font-weight:600 }
+
+/* Reveal on scroll */
+.reveal{ opacity:0; transform: translateY(12px); transition: opacity .35s ease, transform .35s ease }
+.reveal.in{ opacity:1; transform:none }
+
+/* Pages & post content */
+.site-footer{ border-top:1px solid rgba(0,0,0,.05); margin-top:3rem }
+.page h1, .post h1{ margin-top:1rem }
+.post-content img{ max-width:100%; border-radius:10px }
+
+/* YouTube responsive wrapper */
+.yt-wrapper{ position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:12px }
+.yt-wrapper iframe{ position:absolute; top:0; left:0; width:100%; height:100% }
+
+/* ============================
+   Prism + KaTeX Unifier
+   ============================ */
+
+/* Remove halo/ghosting and double backgrounds */
+pre[class*="language-"], code[class*="language-"],
+pre[class*="language-"] *, code[class*="language-"] *{ text-shadow:none !important }
+code[class*="language-"]{ background:transparent !important }
+
 pre[class*="language-"]{
-  background: var(--card) !important;
-  color: var(--text);
-  border: 1px solid rgba(0,0,0,.06);
-  border-radius: 10px;
-  padding: 1rem;
-  overflow: auto;
-}
-:root.dark pre[class*="language-"]{
-  background: #0f1727 !important;
-  border-color: rgba(255,255,255,.08);
+  background:var(--code-bg) !important;
+  color:var(--code-text);
+  border:1px solid var(--code-border);
+  border-radius:12px;
+  padding:1rem;
+  overflow:auto;
+  box-shadow:none;
 }
 
-/* Dark mode adjustments */
-:root.dark pre[class*="language-"],
-:root.dark code[class*="language-"]{
-  background: #0f1727 !important;   /* matches your dark card */
-  border-color: rgba(255,255,255,.08);
-}
-
-/* Monospace + spacing polish */
-pre[class*="language-"]{
-  padding: 1rem;
-  overflow: auto;
-  line-height: 1.55;
-}
-code[class*="language-"]{
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
-}
-pre[class*="language-"],
-code[class*="language-"],
-pre[class*="language-"] *,
-code[class*="language-"] *{
-  text-shadow: none !important;
-}
-
-:root{
-  --code-bg: #f7f9ff;            /* light card */
-  --code-border: rgba(0,0,0,.06);
-  --code-text: var(--text);
-
-  /* Prism token palette (light) */
-  --tok-comment: #6b7280;
-  --tok-key: #1d4ed8;
-  --tok-func: #0d9488;
-  --tok-str: #065f46;
-  --tok-num: #7c3aed;
-  --tok-op: #0f172a;
-}
-:root.dark{
-  --code-bg: #0f1727;            /* dark card */
-  --code-border: rgba(255,255,255,.10);
-  --code-text: var(--text);
-
-  /* Prism token palette (dark) */
-  --tok-comment: #9aa7bd;
-  --tok-key: #8cb0ff;
-  --tok-func: #67e8f9;
-  --tok-str: #86efac;
-  --tok-num: #c4b5fd;
-  --tok-op: #e5e7eb;
-}
-
-/* Background only on <pre>, not inner <code> (prevents ghosting) */
-code[class*="language-"]{ background: transparent !important; text-shadow:none !important; }
-pre[class*="language-"]{
-  background: var(--code-bg) !important;
-  color: var(--code-text);
-  border: 1px solid var(--code-border);
-  border-radius: 12px;
-  padding: 1rem;
-  overflow: auto;
-  box-shadow: none;
-}
-pre[class*="language-"] *{ text-shadow:none !important; }
-
-/* Prism token colors unified */
+/* Prism token colors */
 .token.comment, .token.prolog, .token.doctype, .token.cdata { color: var(--tok-comment) !important; }
 .token.keyword, .token.atrule { color: var(--tok-key) !important; }
 .token.function, .token.class-name { color: var(--tok-func) !important; }
@@ -226,13 +229,13 @@ pre[class*="language-"] *{ text-shadow:none !important; }
 .token.number, .token.boolean, .token.constant { color: var(--tok-num) !important; }
 .token.operator, .token.punctuation { color: var(--tok-op) !important; }
 
-/* KaTeX display blocks look like code blocks (same surface) */
+/* KaTeX display block styled like code surface */
 .katex-display{
-  background: var(--code-bg);
-  border: 1px solid var(--code-border);
-  border-radius: 12px;
-  padding: 0.75rem 1rem;
-  margin: 1rem 0;
-  overflow-x: auto;  /* long equations don’t break layout */
+  background:var(--code-bg);
+  border:1px solid var(--code-border);
+  border-radius:12px;
+  padding:.75rem 1rem;
+  margin:1rem 0;
+  overflow-x:auto;
 }
-.katex{ color: var(--code-text); } /* text color sync */
+.katex{ color:var(--code-text) }
