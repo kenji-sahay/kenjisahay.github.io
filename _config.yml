@@ -10,6 +10,7 @@ markdown: kramdown
 highlighter: none
 kramdown:
   input: GFM
+  syntax_highlighter: nil
 plugins:
   - jekyll-seo-tag
   - jekyll-sitemap
