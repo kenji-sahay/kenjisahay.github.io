@@ -1,0 +1,14 @@
+<header class="site-header">
+  <div class="container flex between center">
+    <a class="brand" href="{{ '/' | relative_url }}">{{ site.name }}</a>
+    <nav class="nav">
+      <a href="{{ '/' | relative_url }}">Home</a>
+      <a href="{{ '/blog/' | relative_url }}">Blog</a>
+      <a href="{{ '/portfolio/' | relative_url }}">Portfolio</a>
+      <a href="{{ '/about' | relative_url }}">About</a>
+      <a href="{{ '/contact' | relative_url }}">Contact</a>
+      {% include dark_toggle.html %}
+      <a class="search-link" href="{{ '/search' | relative_url }}" aria-label="Search">Search</a>
+    </nav>
+  </div>
+</header>
