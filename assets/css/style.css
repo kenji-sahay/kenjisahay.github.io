@@ -255,3 +255,12 @@ pre[class*="language-"]{
   #hero-canvas{ display:none; }
 }
 html.__noTransition * { transition: none !important; }
+
+/* kill accidental horizontal scroll */
+html, body { overflow-x: hidden; }
+
+/* make sure nothing is wider than the viewport */
+img, video, canvas { max-width: 100%; }
+
+/* three.js canvas: don't use 100vw; fill the container instead */
+#hero-canvas { width: 100% !important; }
