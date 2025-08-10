@@ -1,0 +1,40 @@
+# _config.yml
+# Site settings
+name: "En Garde Data"
+description: "Research notes on LLMs, a RAG internship journal, and a portfolio of digital art/film."
+url: https://engardedata.com
+baseurl: ""
+
+# Build settings (GitHub Pages–compatible)
+markdown: kramdown
+highlighter: rouge
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-paginate
+paginate: 10
+paginate_path: "/blog/page:num/"
+
+# Collections
+collections:
+  portfolio:
+    output: true
+    permalink: /portfolio/:name/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: post
+      tags: []
+      math: false
+  - scope:
+      path: ""
+      type: "portfolio"
+    values:
+      layout: portfolio_item
+
+# Exclude (optional)
+exclude: ["README.md", "_portfolio/_config_collection.md"]
