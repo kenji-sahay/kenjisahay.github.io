@@ -13,3 +13,13 @@
   if(saved){ setTheme(saved); }
   else if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches){ setTheme('dark'); }
 })();
+(function(){
+  const header = document.querySelector('.site-header');
+  if(!header) return;
+  const onScroll = () => {
+    if (window.scrollY > 6) header.classList.add('scrolled');
+    else header.classList.remove('scrolled');
+  };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+})();
