@@ -255,3 +255,4 @@ pre[class*="language-"]{
 @media (prefers-reduced-motion: reduce){
   #hero-canvas{ display:none; }
 }
+html.__noTransition * { transition: none !important; }
