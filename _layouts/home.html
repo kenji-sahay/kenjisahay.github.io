@@ -33,3 +33,57 @@ layout: default
 </section>
 <script src="https://unpkg.com/three@0.161.0/build/three.min.js"></script>
 <script src="{{ '/assets/js/three-hero.js' | relative_url }}"></script>
+<script src="https://unpkg.com/three@0.161.0/build/three.min.js"></script>
+<script>
+(function(){
+  try{
+    const canvas = document.getElementById('hero-canvas');
+    if(!canvas) { console.error('No hero-canvas found'); return; }
+
+    // Respect reduced motion (comment out next 2 lines if you want to force it on)
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    // Renderer
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'low-power' });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setClearColor(0x000000, 0); // transparent
+
+    // Scene + camera
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, 1, 0.1, 100);
+    camera.position.set(0, 0, 3);
+
+    // Cube
+    const cube = new THREE.Mesh(
+      new THREE.BoxGeometry(1,1,1),
+      new THREE.MeshNormalMaterial()
+    );
+    scene.add(cube);
+
+    // Size to hero
+    function sizeToHero(){
+      const hero = canvas.parentElement;
+      const w = hero.clientWidth || window.innerWidth;
+      const h = hero.clientHeight || Math.max(240, window.innerHeight * 0.45);
+      renderer.setSize(w, h, false);
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+    }
+    sizeToHero();
+    window.addEventListener('resize', sizeToHero, { passive: true });
+    if ('ResizeObserver' in window) new ResizeObserver(sizeToHero).observe(canvas.parentElement);
+
+    // Animate
+    function tick(){
+      cube.rotation.x += 0.01;
+      cube.rotation.y += 0.015;
+      renderer.render(scene, camera);
+      requestAnimationFrame(tick);
+    }
+    tick();
+    console.log('Three.js cube running');
+  }catch(e){
+    console.error('Three init failed:', e);
+  }
+})();
+</script>
