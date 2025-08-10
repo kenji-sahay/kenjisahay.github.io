@@ -1,0 +1,15 @@
+<article class="post-card">
+  <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+  <p class="muted">{{ post.date | date: '%b %d, %Y' }}</p>
+  {% if post.excerpt %}<p>{{ post.excerpt | strip_html | truncate: 160 }}</p>{% endif %}
+  {% assign teaser = post.teaser | default: post.cover %}
+  {% if teaser %}<img class="post-teaser" src="{{ teaser | relative_url }}" alt="" loading="lazy">{% endif %}
+  {% assign tags = post.tags %}
+  {% if tags %}
+    <div class="tags">
+      {% for t in tags %}
+        <a class="tag" href="{{ '/blog/?tag=' | relative_url }}{{ t | url_encode }}">#{{ t }}</a>
+      {% endfor %}
+    </div>
+  {% endif %}
+</article>
