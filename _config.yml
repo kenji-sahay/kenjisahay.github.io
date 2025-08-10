@@ -7,7 +7,9 @@ baseurl: ""
 
 # Build settings (GitHub Pages–compatible)
 markdown: kramdown
-highlighter: rouge
+highlighter: none
+kramdown:
+  input: GFM
 plugins:
   - jekyll-seo-tag
   - jekyll-sitemap
