@@ -1,0 +1,60 @@
+---
+layout: page
+title: Blog
+pagination: enabled
+---
+<div class="filters">
+  <label for="tag">Filter by tag:</label>
+  <select id="tag" onchange="filterByTag()">
+    <option value="">All</option>
+    {% assign tset = "" | split: "" %}
+    {% for post in site.posts %}
+      {% for t in post.tags %}
+        {% unless tset contains t %}
+          {% assign tset = tset | push: t %}
+        {% endunless %}
+      {% endfor %}
+    {% endfor %}
+    {% assign tset = tset | sort %}
+    {% for t in tset %}
+      <option value="{{ t }}">{{ t }}</option>
+    {% endfor %}
+  </select>
+</div>
+
+<div id="post-list" class="grid">
+  {% for post in paginator.posts %}
+    {% include post_card.html post=post %}
+  {% endfor %}
+</div>
+
+<div class="pagination">
+  {% if paginator.previous_page %}
+    <a class="btn" href="{{ paginator.previous_page_path | relative_url }}">← Newer</a>
+  {% endif %}
+  <span>Page {{ paginator.page }} of {{ paginator.total_pages }}</span>
+  {% if paginator.next_page %}
+    <a class="btn" href="{{ paginator.next_page_path | relative_url }}">Older →</a>
+  {% endif %}
+</div>
+
+<script>
+function filterByTag(){
+  const sel = document.getElementById('tag');
+  const tag = sel.value;
+  const url = new URL(window.location);
+  if(tag){ url.searchParams.set('tag', tag); } else { url.searchParams.delete('tag'); }
+  window.location = url.toString();
+}
+// On load, if ?tag= is present, hide non-matching cards (client-side)
+(function(){
+  const params = new URLSearchParams(window.location.search);
+  const qtag = params.get('tag');
+  if(!qtag) return;
+  document.getElementById('tag').value = qtag;
+  document.querySelectorAll('.post-card').forEach(card=>{
+    const tlinks = Array.from(card.querySelectorAll('.tag')).map(a=>a.textContent.replace('#',''));
+    if(!tlinks.includes(qtag)) card.style.display='none';
+  });
+})();
+</script>
