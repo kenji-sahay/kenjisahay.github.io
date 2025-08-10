@@ -8,7 +8,22 @@
 .nav a{margin:0 .75rem;text-decoration:none;color:var(--text)}
 .nav a:hover{color:var(--link)}
 .dark-toggle{margin-left:.5rem}
-.hero{padding:2.5rem 0; background:linear-gradient(90deg,var(--accent),transparent 60%)}
+.hero{
+  /* Make background stretch edge-to-edge across viewport */
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+
+  /* Keep text aligned with your container width */
+  padding: 3rem calc(50vw - 50%);
+  /* add a little extra horizontal padding so the gradient “peeks” before text */
+  padding-left: calc(50vw - 50% + 1rem);
+  padding-right: calc(50vw - 50% + 1rem);
+
+  background: linear-gradient(90deg, var(--accent), transparent 70%);
+}
+
+.hero h1{ margin: 0 0 .5rem 0; }
+.hero .lead{ font-size:1.1rem; }
 .lead{color:var(--muted)}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem}
 .post-card{background:var(--card);border-radius:12px;padding:1rem;border:1px solid rgba(0,0,0,.06)}
