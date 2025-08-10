@@ -1,0 +1,13 @@
+---
+layout: page
+title: Portfolio
+---
+<div class="gallery">
+  {% for item in site.portfolio %}
+    <a class="gallery-item" href="{{ item.url | relative_url }}">
+      {% if item.cover %}<img src="{{ item.cover | relative_url }}" alt="{{ item.title }}" loading="lazy">{% endif %}
+      <div class="caption">{{ item.title }}</div>
+      {% if item.summary %}<p class="small muted">{{ item.summary }}</p>{% endif %}
+    </a>
+  {% endfor %}
+</div>
