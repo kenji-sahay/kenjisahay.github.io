@@ -121,13 +121,20 @@ html{ scroll-behavior: smooth; }
 .reveal{ opacity:0; transform: translateY(12px); transition: opacity .35s ease, transform .35s ease; }
 .reveal.in{ opacity:1; transform:none; }
 
-pre[class*="language-"],
 code[class*="language-"]{
+  background: transparent !important;
+}
+pre[class*="language-"]{
   background: var(--card) !important;
   color: var(--text);
-  box-shadow: none;
   border: 1px solid rgba(0,0,0,.06);
   border-radius: 10px;
+  padding: 1rem;
+  overflow: auto;
+}
+:root.dark pre[class*="language-"]{
+  background: #0f1727 !important;
+  border-color: rgba(255,255,255,.08);
 }
 
 /* Dark mode adjustments */
@@ -145,4 +152,10 @@ pre[class*="language-"]{
 }
 code[class*="language-"]{
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+}
+pre[class*="language-"],
+code[class*="language-"],
+pre[class*="language-"] *,
+code[class*="language-"] *{
+  text-shadow: none !important;
 }
