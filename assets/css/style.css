@@ -7,8 +7,10 @@
   position: sticky; top: 0; z-index: 40;
   /* translucent tint + subtle gradient to feel like a surface */
   background:
-    linear-gradient(180deg, rgba(255,255,255,.65), rgba(255,255,255,.45)) /* light mode base */
-    ;
+    linear-gradient(180deg,
+      rgba(26,92,255,.07),          /* faint blue top tint */
+      rgba(255,255,255,.45)         /* soft white bottom blend */
+    );
   -webkit-backdrop-filter: blur(10px) saturate(140%);
   backdrop-filter: blur(10px) saturate(140%);
   border-bottom: 1px solid rgba(0,0,0,.06);
@@ -18,7 +20,9 @@
 /* dark mode tint */
 :root.dark .site-header{
   background:
-    linear-gradient(180deg, rgba(16,22,35,.65), rgba(16,22,35,.45));
+    linear-gradient(180deg,
+      rgba(26,92,255,.10),          /* slightly stronger blue tint */
+      rgba(16,22,35,.45)  
   border-bottom-color: rgba(255,255,255,.08);
 }
 
