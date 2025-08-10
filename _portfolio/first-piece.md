@@ -1,4 +1,3 @@
-```markdown
 ---
 title: "First Piece"
 summary: "Digital painting exploring blue tones."
