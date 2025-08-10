@@ -239,3 +239,19 @@ pre[class*="language-"]{
   overflow-x:auto;
 }
 .katex{ color:var(--code-text) }
+
+#hero-canvas{
+  position: sticky;     /* sticks under the header and behind hero content */
+  top: 0;
+  z-index: 0;
+  width: 100vw;
+  height: 48vh;         /* adjust if you want taller/shorter */
+  display: block;
+  pointer-events: none;
+}
+.hero{ position: relative; z-index: 1; } /* keep hero text above the canvas */
+
+/* Reduce motion: fully disable animation if user prefers no motion */
+@media (prefers-reduced-motion: reduce){
+  #hero-canvas{ display:none; }
+}
